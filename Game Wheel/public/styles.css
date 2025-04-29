@@ -1,0 +1,657 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #e63946;
+  --secondary-color: #2a9d8f;
+  --accent-color: #4361ee;
+  --dark-color: #1a1a2e;
+  --light-color: #f5f5f5;
+  --success-color: #2a9d8f;
+  --error-color: #e63946;
+  --border-radius: 10px;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #e63946, #4361ee);
+  color: var(--light-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Header Styles */
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.wheel-navigation {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wheel-nav-btn {
+  padding: 8px 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wheel-nav-btn.active {
+  background-color: var(--secondary-color);
+  color: var(--light-color);
+  font-weight: bold;
+}
+
+.wheel-nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.audio-controls {
+  display: flex;
+  gap: 15px;
+}
+
+.audio-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.audio-controls button:hover {
+  opacity: 1;
+}
+
+.audio-controls button.muted {
+  opacity: 0.4;
+}
+
+/* Main Content Area */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  position: relative;
+}
+
+/* Game Selection Popup */
+.selection-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--dark-color);
+  border: 3px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.selection-popup.show {
+  display: block;
+}
+
+.selection-popup h2 {
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+
+.selection-popup .game-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.selection-popup .close-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selection-popup .close-btn:hover {
+  transform: scale(1.05);
+  background-color: #ff4d5e;
+}
+
+/* Slot Machine Styles */
+.wheel-container {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin: 20px auto;
+  background-color: var(--dark-color);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  padding: 20px;
+}
+
+#wheel {
+  width: 70%;
+  height: 200px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 8px solid #4361ee;
+  border-radius: 10px;
+  background-color: var(--dark-color);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.slot-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.items-strip {
+  position: absolute;
+  width: 100%;
+  transform: translateY(0);
+}
+
+.slot-item {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.slot-window {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Selection pointer */
+.slot-pointer {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 20px solid var(--primary-color);
+  z-index: 11;
+}
+
+.wheel-lights {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.lights-row {
+  position: absolute;
+  width: calc(100% - 40px);
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lights-row.top {
+  top: 5px;
+}
+
+.lights-row.bottom {
+  bottom: 5px;
+}
+
+.light {
+  width: 10px;
+  height: 10px;
+  background-color: #fffc9e;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 200, 0.8);
+  animation: pulse 1.5s infinite alternate;
+}
+
+/* Dropdown list styles */
+.list-dropdown-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 180px;
+  z-index: 90;
+}
+
+#show-list-btn {
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.list-dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 400px;
+  background-color: var(--dark-color);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: none;
+  overflow: hidden;
+}
+
+.list-dropdown.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--dark-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.list-header h3 {
+  margin: 0;
+  color: var(--light-color);
+}
+
+#close-list-btn {
+  background: none;
+  border: none;
+  color: var(--light-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+#close-list-btn:hover {
+  opacity: 1;
+}
+
+.list-content {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.list-item {
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: var(--light-color);
+}
+
+.list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+.action-btn {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(67, 97, 238, 0.5);
+}
+
+.action-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  height: 40px;
+  background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  text-align: center;
+}
+
+.result.show {
+  opacity: 1;
+  animation: pulse 1.5s ease-in-out;
+}
+
+/* Suggestion Form */
+.suggestion-section {
+  width: 100%;
+  max-width: 800px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.suggestion-section h2 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#suggestion-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-group {
+  flex: 1 1 200px;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input, 
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#suggestion-form button {
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+/* Admin Panel */
+.admin-btn {
+  margin-top: 20px;
+  padding: 8px 15px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.admin-btn:hover {
+  opacity: 1;
+}
+
+.admin-panel {
+  width: 100%;
+  max-width: 700px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-top: 30px;
+  display: none; /* Hidden by default, shown after login */
+}
+
+.admin-panel h2,
+.admin-panel h3 {
+  margin-bottom: 15px;
+}
+
+#suggestions-list {
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#suggestions-list li {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestion-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.approve-btn {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.reject-btn {
+  background-color: var(--error-color);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Confetti Container */
+#confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+/* Slot scrolling animation */
+@keyframes slotScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-60px); } /* Height of one slot item */
+}
+
+.scrolling {
+  animation: slotScroll 0.1s linear infinite;
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  z-index: 1001;
+  animation: fadeIn 0.3s ease;
+}
+
+.notification.success {
+  background-color: var(--success-color);
+}
+
+.notification.error {
+  background-color: var(--error-color);
+}
+
+.notification.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-80vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes firework {
+  0% {
+    transform: translate(0, 0);
+    width: 4px;
+    height: 4px;
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x-end), var(--y-end));
+    width: 2px;
+    height: 2px;
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .wheel-container {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .slot-window {
+    height: 50px;
+  }
+  
+  .slot-item {
+    height: 50px;
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .action-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  
+  .suggestion-section {
+    padding: 15px;
+  }
+  
+  #suggestion-form {
+    flex-direction: column;
+  }
+  
+  .form-group {
+    width: 100%;
+  }
+}
